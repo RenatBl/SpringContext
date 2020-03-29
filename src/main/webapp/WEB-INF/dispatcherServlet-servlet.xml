@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <context:component-scan base-package="ru.itis.context"/>
+    <mvc:annotation-driven/>
+
+    <!--<bean id="/signIn" class="ru.itis.context.controllers.SignInController"/>
+    <bean id="/signUp" class="ru.itis.context.controllers.SignUpController"/>
+    <bean id="/users" class="ru.itis.context.controllers.UsersController"/>
+    <bean id="/user" class="ru.itis.context.controllers.UserPageController"/>
+    <bean id="/posts" class="ru.itis.context.controllers.PostsController"/>
+    <bean id="/confirm" class="ru.itis.context.controllers.ConfirmingController"/>-->
+</beans>
