@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import ru.itis.context.models.Post;
 
 import java.sql.PreparedStatement;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,11 +25,13 @@ public class PostsRepoImpl implements PostsRepo {
                     .header(row.getString("post_header"))
                     .content(row.getString("post_content"))
                     .owner(row.getLong("owner_id"))
+                    .dateOfCreating(LocalDateTime.parse(row.getString("date_of_create")))
                     .build();
 
     private static final String SQL_FIND_ALL_BY_OWNER = "select * from posts where owner_id = ?";
     private static final String SQL_SELECT_BY_HEADER = "select * from posts where header = ?";
-    private static final String SQL_INSERT = "insert into posts (post_header, post_content, owner_id) VALUES (?,?,?)";
+    private static final String SQL_INSERT = "insert into posts (post_header, post_content, owner_id, date_of_create) " +
+            "VALUES (?,?,?,?)";
     private static final String SQL_DELETE_BY_ID = "delete from posts where id = ?";
 
     @Override
@@ -66,6 +69,7 @@ public class PostsRepoImpl implements PostsRepo {
             statement.setString(1, entity.getHeader());
             statement.setString(2, entity.getContent());
             statement.setLong(3, entity.getOwner());
+            statement.setString(4, LocalDateTime.now().toString());
             return statement;
         }, keyHolder);
 

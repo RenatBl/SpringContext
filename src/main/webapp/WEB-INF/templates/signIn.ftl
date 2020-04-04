@@ -1,12 +1,82 @@
 <#ftl encoding='UTF-8'>
-<#import "parts/html.ftl" as p>
-<@p.page>
-    <div>
-        <form action="/signIn" method="post">
-            <label>Username: <input type="text" name="userName" placeholder="Enter the username"></label>
-            <label>Password: <input type="password" name="password" placeholder="Enter the password"></label>
-            <button type="submit">Войти</button>
-        </form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Sign In</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="static/images/icons/favicon.ico"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="static/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="static/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="static/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="static/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="static/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="static/css/util.css">
+    <link rel="stylesheet" type="text/css" href="static/css/main.css">
+    <!--===============================================================================================-->
+</head>
+<body>
+
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100">
+
+
+            <form class="login100-form validate-form" action="/signIn" method="post">
+					<span class="login100-form-title">
+						Sign In
+					</span>
+
+                <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+                    <input class="input100" type="text" name="username" placeholder="Username">
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate = "Password is required">
+                    <input class="input100" type="password" name="password" placeholder="Password">
+                </div>
+
+                <div class="container-login100-form-btn">
+                    <button type="submit" class="login100-form-btn">
+                        Login
+                    </button>
+                </div>
+
+                <div class="text-center p-t-136">
+                    <a class="txt2" href="/signUp">
+                        Create your Account
+                    </a>
+                </div>
+            </form>
+        </div>
     </div>
-    <a href="/signUp">Sign Up</a>
-</@p.page>
+</div>
+
+
+
+
+<!--===============================================================================================-->
+<script src="static/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+<script src="static/vendor/bootstrap/js/popper.js"></script>
+<script src="static/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+<script src="static/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+<script src="static/vendor/tilt/tilt.jquery.min.js"></script>
+<script >
+    $('.js-tilt').tilt({
+        scale: 1.1
+    })
+</script>
+<!--===============================================================================================-->
+<script src="static/js/main.js"></script>
+
+</body>
+</html>

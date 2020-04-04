@@ -9,6 +9,6 @@ import java.util.Optional;
 public interface PostsService {
     Optional<Post> getPostByHeader(String header);
     void addNewPost(PostForm form);
-    List<Post> getAllPosts(Long owner);
+    List<Post> getAllPosts(Long owner, String sort);
     void deletePost(Long id);
 }

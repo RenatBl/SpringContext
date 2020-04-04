@@ -2,7 +2,7 @@ package ru.itis.context.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.itis.context.forms.UserForm;
+import ru.itis.context.dto.UserDto;
 import ru.itis.context.models.User;
 import ru.itis.context.repo.UsersRepo;
 
@@ -11,6 +11,7 @@ import java.util.Optional;
 
 @Component
 public class UsersServiceImpl implements UsersService {
+
     @Autowired
     private UsersRepo usersRepo;
 
@@ -36,5 +37,18 @@ public class UsersServiceImpl implements UsersService {
 
     public List<User> getAllUsers() {
         return usersRepo.findAll();
+    }
+
+    @Override
+    public void updateUser(UserDto userDto) {
+        User user = getUserById(userDto.getId());
+        usersRepo.update(User.builder()
+                .id(user.getId())
+                .userName(userDto.getUserName())
+                .email(userDto.getEmail())
+                .role(user.getRole())
+                .status(user.getStatus())
+                .password(user.getPassword())
+                .build());
     }
 }

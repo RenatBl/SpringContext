@@ -12,6 +12,7 @@ import java.util.Optional;
 
 @Component
 public class ConfirmServiceImpl implements ConfirmService {
+
     @Autowired
     private LinkRepo linkRepo;
 
@@ -27,7 +28,7 @@ public class ConfirmServiceImpl implements ConfirmService {
             if (userCandidate.isPresent()) {
                 User user = userCandidate.get();
                 user.setStatus(Status.CONFIRMED);
-                usersRepo.update(user);
+                usersRepo.updateStatus(user);
                 linkRepo.delete(link.getId());
             } else {
                 throw new IllegalStateException("User didn't find");

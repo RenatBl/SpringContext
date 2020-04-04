@@ -36,7 +36,9 @@ public class UsersRepoImpl implements UsersRepo {
     private static final String SQL_SELECT_BY_USERNAME = "select * from users where username = ?";
     private static final String SQL_INSERT = "insert into users (username, hashed_password, email, status, role) " +
             "VALUES (?,?,?,?,?)";
-    private static final String SQL_UPDATE = "update users set status = ? where id = ?";
+    private static final String SQL_UPDATE_STATUS = "update users set status = ? where id = ?";
+    private static final String SQL_UPDATE = "update users set username = ?, hashed_password = ?, email = ?, " +
+            "status = ?, role = ? where id = ?";
 
     @Override
     public Optional<User> findByUserName(String login) {
@@ -49,12 +51,27 @@ public class UsersRepoImpl implements UsersRepo {
     }
 
     @Override
+    public void updateStatus(User user) {
+        jdbcTemplate.update(connection -> {
+            PreparedStatement statement = connection
+                    .prepareStatement(SQL_UPDATE_STATUS);
+            statement.setString(1, user.getStatus().name());
+            statement.setLong(2, user.getId());
+            return statement;
+        });
+    }
+
+    @Override
     public void update(User user) {
         jdbcTemplate.update(connection -> {
             PreparedStatement statement = connection
                     .prepareStatement(SQL_UPDATE);
-            statement.setString(1, user.getStatus().name());
-            statement.setLong(2, user.getId());
+            statement.setString(1, user.getUserName());
+            statement.setString(2, user.getPassword());
+            statement.setString(3, user.getEmail());
+            statement.setString(4, user.getStatus().name());
+            statement.setString(5, user.getRole().name());
+            statement.setLong(6, user.getId());
             return statement;
         });
     }

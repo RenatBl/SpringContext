@@ -13,7 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
+//TODO сделать security на JWT токенах
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -34,7 +34,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/signUp", "/signIn").permitAll()
-                .antMatchers("/users").hasAuthority("ADMIN")
+                .antMatchers("/users").authenticated()
+                .antMatchers("/changeUser").hasAuthority("ADMIN")
+                .antMatchers("/change").hasAuthority("ADMIN")
                 .antMatchers("/user").authenticated()
                 .antMatchers("/posts").authenticated()
                 .antMatchers("/").authenticated()
@@ -43,7 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .loginPage("/signIn")
                     .defaultSuccessUrl("/")
                     .failureUrl("/signIn?error")
-                    .usernameParameter("userName")
+                    .usernameParameter("username")
                     .passwordParameter("password")
                     .permitAll()
                 .and()
