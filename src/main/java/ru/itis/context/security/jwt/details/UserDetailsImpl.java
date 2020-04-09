@@ -1,38 +1,39 @@
-package ru.itis.context.security.details;
+package ru.itis.context.security.jwt.details;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import ru.itis.context.models.User;
 import ru.itis.context.models.enums.Status;
 
 import java.util.Collection;
 import java.util.Collections;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@ToString
 public class UserDetailsImpl implements UserDetails {
 
-    @Autowired
-    private User user;
-
-    public User getUser() {
-        return user;
-    }
+    private Long userId;
+    private String username;
+    private String role;
+    private String status;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority(user.getRole().name()));
+        return Collections.singleton(new SimpleGrantedAuthority(role));
     }
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return null;
     }
 
     @Override
     public String getUsername() {
-        return user.getUserName();
+        return username;
     }
 
     @Override
@@ -52,10 +53,10 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return user.getStatus().equals(Status.CONFIRMED);
+        return status.equals(Status.CONFIRMED.name());
     }
 
-    public UserDetailsImpl(User user) {
-        this.user = user;
+    public Long getUserId() {
+        return userId;
     }
 }
