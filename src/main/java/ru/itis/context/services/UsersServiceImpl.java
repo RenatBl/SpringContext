@@ -1,7 +1,7 @@
 package ru.itis.context.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import ru.itis.context.dto.UserDto;
 import ru.itis.context.models.User;
 import ru.itis.context.repo.UsersRepo;
@@ -9,7 +9,7 @@ import ru.itis.context.repo.UsersRepo;
 import java.util.List;
 import java.util.Optional;
 
-@Component
+@Service
 public class UsersServiceImpl implements UsersService {
 
     @Autowired
@@ -44,11 +44,16 @@ public class UsersServiceImpl implements UsersService {
         User user = getUserById(userDto.getId());
         usersRepo.update(User.builder()
                 .id(user.getId())
-                .userName(userDto.getUserName())
+                .username(userDto.getUserName())
                 .email(userDto.getEmail())
                 .role(user.getRole())
                 .status(user.getStatus())
                 .password(user.getPassword())
                 .build());
+    }
+
+    @Override
+    public Optional<User> find(String username) {
+        return usersRepo.findByUserName(username);
     }
 }

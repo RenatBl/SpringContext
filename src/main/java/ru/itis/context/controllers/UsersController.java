@@ -15,7 +15,7 @@ import java.util.List;
 
 @Controller
 public class UsersController {
-//TODO сделать RestController
+
     @Autowired
     private UsersService usersService;
 

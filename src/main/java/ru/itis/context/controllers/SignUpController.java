@@ -1,24 +1,21 @@
 package ru.itis.context.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.itis.context.forms.UserForm;
-import ru.itis.context.services.AuthService;
+import ru.itis.context.services.SignUpService;
 
-@Controller
+@RestController
+@RequestMapping("/signUp")
 public class SignUpController {
+
     @Autowired
-    private AuthService authService;
+    private SignUpService signUpService;
 
-    @RequestMapping(value = "/signUp", method = RequestMethod.GET)
-    public String getSignUpPage() {
-        return "signUp";
-    }
-
-    @RequestMapping(value = "/signUp", method = RequestMethod.POST)
-    public String signUpUser(@ModelAttribute("form") UserForm form) {
-        authService.addNewUser(form);
-        return "redirect:/signIn";
+    @PostMapping
+    public ResponseEntity signUpUser(@RequestBody UserForm form) {
+        signUpService.addNewUser(form);
+        return ResponseEntity.accepted().build();
     }
 }
