@@ -8,10 +8,4 @@
     <context:component-scan base-package="ru.itis.context"/>
     <mvc:annotation-driven/>
 
-    <!--<bean id="/signIn" class="ru.itis.context.controllers.SignInController"/>
-    <bean id="/signUp" class="ru.itis.context.controllers.SignUpController"/>
-    <bean id="/users" class="ru.itis.context.controllers.UsersController"/>
-    <bean id="/user" class="ru.itis.context.controllers.UserPageController"/>
-    <bean id="/posts" class="ru.itis.context.controllers.PostsController"/>
-    <bean id="/confirm" class="ru.itis.context.controllers.ConfirmingController"/>-->
 </beans>

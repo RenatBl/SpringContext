@@ -1,10 +1,11 @@
-package ru.itis.context.services;
+package ru.itis.context.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import ru.itis.context.models.FileInfo;
 import ru.itis.context.repo.FileRepo;
+import ru.itis.context.services.FilesStorageService;
 import ru.itis.context.utils.FileUtil;
 
 import javax.servlet.http.HttpServletResponse;

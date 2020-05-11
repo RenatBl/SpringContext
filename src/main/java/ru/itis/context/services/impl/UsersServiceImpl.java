@@ -1,10 +1,11 @@
-package ru.itis.context.services;
+package ru.itis.context.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.itis.context.dto.UserDto;
 import ru.itis.context.models.User;
 import ru.itis.context.repo.UsersRepo;
+import ru.itis.context.services.UsersService;
 
 import java.util.List;
 import java.util.Optional;

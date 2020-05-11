@@ -15,6 +15,10 @@
                     <input type="hidden" name="id" value="${user.id}">
                     <button type="submit" class="btn btn-dark">Edit</button>
                 </form>
+                <form action="/chat" method="get">
+                    <input type="hidden" name="owner" value="${user.userName}">
+                    <button type="submit" class="btn btn-danger">Chat</button>
+                </form>
             </#if>
             <form action="/posts" method="get" style="display: inline-block; float: right; margin-top: 10px !important">
                 <input type="hidden" name="id" value="${user.id}">

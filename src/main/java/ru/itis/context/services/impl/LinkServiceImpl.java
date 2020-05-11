@@ -1,14 +1,16 @@
-package ru.itis.context.services;
+package ru.itis.context.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.itis.context.models.Link;
 import ru.itis.context.repo.LinkRepo;
+import ru.itis.context.services.LinkService;
 
 import java.util.Random;
 
 @Component
 public class LinkServiceImpl implements LinkService {
+
     @Autowired
     private LinkRepo linkRepo;
 

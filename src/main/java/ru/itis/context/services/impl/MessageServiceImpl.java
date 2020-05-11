@@ -1,10 +1,12 @@
-package ru.itis.context.services;
+package ru.itis.context.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 import ru.itis.context.models.Mail;
+import ru.itis.context.services.MessageService;
+import ru.itis.context.services.TemplateService;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;

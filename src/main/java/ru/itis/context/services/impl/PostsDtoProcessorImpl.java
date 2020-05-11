@@ -1,8 +1,9 @@
-package ru.itis.context.services;
+package ru.itis.context.services.impl;
 
 import org.springframework.stereotype.Service;
 import ru.itis.context.dto.PostDTO;
 import ru.itis.context.models.Post;
+import ru.itis.context.services.PostsDtoProcessor;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

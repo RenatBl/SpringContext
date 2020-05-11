@@ -36,7 +36,6 @@
         }
     </style>
 
-    <body>
 <div class="card">
     <img src="https://image.flaticon.com/icons/png/512/56/56745.png" alt="" style="width:100%; margin-top: 10px">
     <h1>${user.getUserName()}</h1>
@@ -45,6 +44,12 @@
     <form action="/posts" method="get">
         <input type="hidden" name="id" value="${user.id}">
         <button class="posts" type="submit">Posts</button>
+    </form>
+</div>
+
+<div>
+    <form action="/chat" method="get">
+        <button type="submit">Chat</button>
     </form>
 </div>
 </@p.page>

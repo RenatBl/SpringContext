@@ -1,4 +1,4 @@
-package ru.itis.context.repo;
+package ru.itis.context.repo.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -8,6 +8,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 import ru.itis.context.models.Link;
+import ru.itis.context.repo.LinkRepo;
 
 import java.sql.PreparedStatement;
 import java.util.List;

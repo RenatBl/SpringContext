@@ -1,10 +1,11 @@
-package ru.itis.context.services;
+package ru.itis.context.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.itis.context.forms.PostForm;
 import ru.itis.context.models.Post;
 import ru.itis.context.repo.PostsRepo;
+import ru.itis.context.services.PostsService;
 
 import java.util.List;
 import java.util.Optional;

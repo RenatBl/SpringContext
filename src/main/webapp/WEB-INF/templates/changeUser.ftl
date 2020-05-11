@@ -10,7 +10,7 @@
                     <span class="input-group-text" id="basic-addon1">Username</span>
                 </div>
                 <input type="text" class="form-control" name="userName" aria-label="Username"
-                       aria-describedby="basic-addon1" value="${user.userName}"/>
+                       aria-describedby="basic-addon1" value="${user.getUsername}"/>
             </div>
 
             <div class="input-group mb-3">

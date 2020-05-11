@@ -1,4 +1,4 @@
-package ru.itis.context.repo;
+package ru.itis.context.repo.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import ru.itis.context.models.User;
 import ru.itis.context.models.enums.Role;
 import ru.itis.context.models.enums.Status;
+import ru.itis.context.repo.UsersRepo;
 
 import java.sql.PreparedStatement;
 import java.util.List;

@@ -1,9 +1,10 @@
-package ru.itis.context.services;
+package ru.itis.context.services.impl;
 
 import freemarker.template.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
+import ru.itis.context.services.TemplateService;
 
 import java.util.Map;
 

@@ -1,4 +1,4 @@
-package ru.itis.context.services;
+package ru.itis.context.services.impl;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -11,6 +11,7 @@ import ru.itis.context.dto.TokenDto;
 import ru.itis.context.forms.AuthForm;
 import ru.itis.context.models.User;
 import ru.itis.context.repo.UsersRepo;
+import ru.itis.context.services.SignInService;
 
 import java.util.Optional;
 
