@@ -40,7 +40,7 @@ public class AfterSignInAspect {
             throw new AuthenticationCredentialsNotFoundException("Bad token");
         }
 
-        User user = usersRepo.findByUserName(claims.get("username", String.class)).orElseThrow(() ->
+        User user = usersRepo.findByUsername(claims.get("username", String.class)).orElseThrow(() ->
                     new IllegalArgumentException("User not found")
                 );
 

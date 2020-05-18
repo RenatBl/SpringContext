@@ -9,13 +9,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.itis.context.models.Chat;
+import ru.itis.context.models.enums.Role;
 import ru.itis.context.security.jwt.details.UserDetailsImpl;
 import ru.itis.context.services.ChatMessageService;
 import ru.itis.context.services.ChatService;
 import ru.itis.context.services.MessageDtoProcessor;
 
+import java.util.List;
+
 @Controller
-@RequestMapping("/chat")
 public class ChatController {
 
     @Autowired
@@ -28,21 +30,15 @@ public class ChatController {
     private MessageDtoProcessor processor;
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping
-    public String getAdminChat(@RequestParam("user") String username,
-                          Model model) {
-        UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder
-                .getContext()
-                .getAuthentication()
-                .getDetails();
-        Chat chat =  chatService.getChatByUser(username);
-        model.addAttribute("chat", chat);
-        model.addAttribute("username", userDetails.getUsername());
+    @GetMapping("/chats")
+    public String getAllChats(Model model) {
+        List<Chat> chats =  chatService.getAllChats();
+        model.addAttribute("chats", chats);
         return "chat";
     }
 
     @PreAuthorize("isAuthenticated()")
-    @GetMapping
+    @GetMapping("/chat")
     public String getChat(Model model) {
         Chat chat =  chatService.getChat();
         model.addAttribute("chat", chat);
