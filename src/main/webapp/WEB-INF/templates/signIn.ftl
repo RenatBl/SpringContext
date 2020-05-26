@@ -48,6 +48,7 @@
                 </div>
 
                 <div class="container-login100-form-btn">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                     <button type="submit" class="login100-form-btn">
                         Login
                     </button>

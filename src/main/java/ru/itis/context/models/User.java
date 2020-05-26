@@ -10,21 +10,18 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Entity
+@Table(name = "users")
 public class User {
-
-    public User(String username, String password, String email, Status status, Role role) {
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.status = status;
-        this.role = role;
-    }
 
     @Id
     @GeneratedValue
     private Long id;
 
+    @Column(name = "username")
     private String username;
+
+    @Column(name = "hashed_password")
     private String password;
     private String email;
 

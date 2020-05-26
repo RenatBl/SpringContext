@@ -148,6 +148,7 @@
                     <textarea name="content" id="content" cols="40" rows="6" required ></textarea>
                 </li>
                 <li>
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                     <button class="submit" type="submit">Post</button>
                 </li>
             </ul>

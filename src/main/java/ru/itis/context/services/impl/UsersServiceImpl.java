@@ -28,7 +28,7 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public User getUserByUsername(String username) {
-        Optional<User> userCandidate = usersRepo.findByUserName(username);
+        Optional<User> userCandidate = usersRepo.findByUsername(username);
         if (userCandidate.isPresent()) {
             return userCandidate.get();
         } else {
@@ -55,6 +55,6 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public Optional<User> find(String username) {
-        return usersRepo.findByUserName(username);
+        return usersRepo.findByUsername(username);
     }
 }

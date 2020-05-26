@@ -7,112 +7,86 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.itis.context.models.User;
 import ru.itis.context.models.enums.Role;
 import ru.itis.context.models.enums.Status;
 import ru.itis.context.repo.UsersRepo;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.ParameterExpression;
+import javax.persistence.criteria.Root;
 import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.Optional;
 
-@Component
+@Repository
+@Transactional
 public class UsersRepoImpl implements UsersRepo {
 
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
-
-    private RowMapper<User> userRowMapper = (row, rowNumber) ->
-            User.builder()
-                    .id(row.getLong("id"))
-                    .username(row.getString("username"))
-                    .password(row.getString("hashed_password"))
-                    .email(row.getString("email"))
-                    .status(Status.valueOf(row.getString("status")))
-                    .role(Role.valueOf(row.getString("role")))
-                    .build();
-
-    private static final String SQL_SELECT_ALL = "select * from users";
-    private static final String SQL_DELETE_BY_ID = "delete from users where id = ?";
-    private static final String SQL_SELECT_BY_ID = "select * from users where id = ?";
-    private static final String SQL_SELECT_BY_USERNAME = "select * from users where username = ?";
-    private static final String SQL_INSERT = "insert into users (username, hashed_password, email, status, role) " +
-            "VALUES (?,?,?,?,?)";
-    private static final String SQL_UPDATE_STATUS = "update users set status = ? where id = ?";
-    private static final String SQL_UPDATE = "update users set username = ?, hashed_password = ?, email = ?, " +
-            "status = ?, role = ? where id = ?";
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
-    public Optional<User> findByUserName(String login) {
-        try {
-            return Optional.ofNullable(jdbcTemplate.queryForObject(SQL_SELECT_BY_USERNAME, new Object[]{login},
-                    userRowMapper));
-        } catch (EmptyResultDataAccessException e) {
-            return Optional.empty();
+    public Optional<User> findByUsername(String login) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
+        Root<User> root = criteriaQuery.from(User.class);
+        criteriaQuery.select(root);
+
+        ParameterExpression<String> params = criteriaBuilder.parameter(String.class);
+        criteriaQuery.where(criteriaBuilder.equal(root.get("username"), params));
+
+        TypedQuery<User> query = entityManager.createQuery(criteriaQuery);
+        query.setParameter(params, login);
+        List<User> queryResult = query.getResultList();
+        User returnObject = null;
+
+        if (!queryResult.isEmpty()) {
+            returnObject = queryResult.get(0);
         }
+
+        return Optional.ofNullable(returnObject);
     }
 
     @Override
     public void updateStatus(User user) {
-        jdbcTemplate.update(connection -> {
-            PreparedStatement statement = connection
-                    .prepareStatement(SQL_UPDATE_STATUS);
-            statement.setString(1, user.getStatus().name());
-            statement.setLong(2, user.getId());
-            return statement;
-        });
+        user.setStatus(Status.CONFIRMED);
+        entityManager.merge(user);
     }
 
     @Override
     public void update(User user) {
-        jdbcTemplate.update(connection -> {
-            PreparedStatement statement = connection
-                    .prepareStatement(SQL_UPDATE);
-            statement.setString(1, user.getUsername());
-            statement.setString(2, user.getPassword());
-            statement.setString(3, user.getEmail());
-            statement.setString(4, user.getStatus().name());
-            statement.setString(5, user.getRole().name());
-            statement.setLong(6, user.getId());
-            return statement;
-        });
+        entityManager.merge(user);
     }
 
     @Override
     public Optional<User> find(Long id) {
-        try {
-            User user = jdbcTemplate.queryForObject(SQL_SELECT_BY_ID, new Object[]{id}, userRowMapper);
-            return Optional.ofNullable(user);
-        } catch (EmptyResultDataAccessException e) {
-            return Optional.empty();
-        }
+        return Optional.ofNullable(entityManager.find(User.class, id));
     }
 
     @Override
     public List<User> findAll() {
-        return jdbcTemplate.query(SQL_SELECT_ALL, userRowMapper);
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<User> cq = cb.createQuery(User.class);
+        Root<User> rootEntry = cq.from(User.class);
+        CriteriaQuery<User> all = cq.select(rootEntry);
+        TypedQuery<User> allQuery = entityManager.createQuery(all);
+        return allQuery.getResultList();
     }
 
     @Override
     public void save(User entity) {
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-
-        jdbcTemplate.update(connection -> {
-            PreparedStatement statement = connection
-                    .prepareStatement(SQL_INSERT);
-            statement.setString(1, entity.getUsername());
-            statement.setString(2, entity.getPassword());
-            statement.setString(3, entity.getEmail());
-            statement.setString(4, Status.NOT_CONFIRMED.name());
-            statement.setString(5, Role.USER.name());
-            return statement;
-        }, keyHolder);
-
-        entity.setId((Long)keyHolder.getKey());
+        entityManager.persist(entity);
     }
 
     @Override
-    public void delete(Long id) {
-        jdbcTemplate.query(SQL_DELETE_BY_ID, new Object[]{id}, userRowMapper);
+    public void delete(Long aLong) {
+
     }
 }

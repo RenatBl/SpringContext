@@ -3,7 +3,6 @@ package ru.itis.context.services.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import ru.itis.context.models.Chat;
 import ru.itis.context.models.User;
 import ru.itis.context.models.enums.Role;
@@ -12,6 +11,7 @@ import ru.itis.context.repo.UsersRepo;
 import ru.itis.context.security.jwt.details.UserDetailsImpl;
 import ru.itis.context.services.ChatService;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -26,7 +26,7 @@ public class ChatServiceImpl implements ChatService {
     @Override
     public Chat getChatByUser(String username) {
         return chatRepo.findByUser(
-                usersRepo.findByUserName(username
+                usersRepo.findByUsername(username
                 ).orElseThrow(() ->
                         new IllegalArgumentException("User not found")
                 )).orElseThrow(() ->
@@ -46,7 +46,7 @@ public class ChatServiceImpl implements ChatService {
 
     @Override
     public void createNewChat(String username) {
-        User user = usersRepo.findByUserName(username).orElseThrow(() ->
+        User user = usersRepo.findByUsername(username).orElseThrow(() ->
                 new IllegalArgumentException("User not found")
         );
 
@@ -58,5 +58,10 @@ public class ChatServiceImpl implements ChatService {
                         .build());
             }
         }
+    }
+
+    @Override
+    public List<Chat> getAllChats() {
+        return chatRepo.findAll();
     }
 }

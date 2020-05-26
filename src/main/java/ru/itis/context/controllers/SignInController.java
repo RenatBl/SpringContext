@@ -11,6 +11,9 @@ import ru.itis.context.forms.AuthForm;
 import ru.itis.context.services.ChatService;
 import ru.itis.context.services.SignInService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 @RestController
 @RequestMapping("/signIn")
 public class SignInController {
@@ -18,12 +21,9 @@ public class SignInController {
     @Autowired
     private SignInService signInService;
 
-    @Autowired
-    private ChatService chatService;
-
     @PostMapping
-    public ResponseEntity<TokenDto> signIn(@RequestBody AuthForm form) {
-        chatService.createNewChat(form.getUserName());
-        return ResponseEntity.ok(signInService.signIn(form));
+    public ResponseEntity<TokenDto> signIn(@RequestBody AuthForm form,
+                                           HttpServletResponse resp) {
+        return ResponseEntity.ok(signInService.signIn(form, resp));
     }
 }

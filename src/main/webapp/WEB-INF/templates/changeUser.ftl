@@ -22,6 +22,7 @@
             </div>
 
             <div>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                 <button type="submit" class="btn btn-dark">Edit</button>
             </div>
         </form>

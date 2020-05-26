@@ -1,13 +1,16 @@
 package ru.itis.context.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
-import ru.itis.context.dto.UserDto;
 import ru.itis.context.forms.UserForm;
 import ru.itis.context.services.SignUpService;
 
-import java.util.Optional;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/signUp")
@@ -18,7 +21,23 @@ public class SignUpController {
 
     @PostMapping
     public ResponseEntity signUpUser(@RequestBody UserForm form) {
-        Optional<UserDto> userDto = signUpService.addNewUser(form);
-        return userDto.isPresent() ? ResponseEntity.accepted().build() : ResponseEntity.status(401).build();
+
+        return signUpService.addNewUser(form).isPresent() ?
+                ResponseEntity.accepted().build() :
+                new ResponseEntity(HttpStatus.BAD_GATEWAY);
     }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Map<String, String> handleValidationExceptions(
+            MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
+            errors.put(fieldName, errorMessage);
+        });
+        return errors;
+    }
+
 }

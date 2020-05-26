@@ -23,7 +23,7 @@ public class SignUpServiceImpl implements SignUpService {
     @Override
     public Optional<UserDto> addNewUser(UserForm form) {
         UserDto userDto;
-        Optional<User> optionalUser = usersRepo.findByUserName(form.getUserName());
+        Optional<User> optionalUser = usersRepo.findByUsername(form.getUserName());
         if (optionalUser.isPresent()) {
             return Optional.empty();
         } else {
