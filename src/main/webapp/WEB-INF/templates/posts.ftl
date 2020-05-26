@@ -136,15 +136,15 @@
         <form class="contact_form" action="/newPost" method="post" name="post">
             <ul>
                 <li>
-                    <h2>New Post</h2>
-                    <span class="required_notification">* Required Field</span>
+                    <h2>${language.get("posts.newpost")}</h2>
+                    <span class="required_notification">${language.get("posts.newpost.req")}</span>
                 </li>
                 <li>
-                    <label for="header">Header:</label>
+                    <label for="header">${language.get("posts.newpost.header")}:</label>
                     <input type="text" name="header" id="header" required />
                 </li>
                 <li>
-                    <label for="content">Content:</label>
+                    <label for="content">${language.get("posts.newpost.content")}:</label>
                     <textarea name="content" id="content" cols="40" rows="6" required ></textarea>
                 </li>
                 <li>
@@ -158,7 +158,7 @@
             <div style="display: inline-block;">
                 <form action="/posts" method="get">
                     <input type="hidden" name="sort" value="asc">
-                    <label for="asc">In ascending order: </label>
+                    <label for="asc">${language.get("posts.asc")}: </label>
                     <button id="asc" type="submit" style="border: 1px black solid; border-radius: 5px"><img
                                 src="https://img.icons8.com/ios-filled/30/000000/generic-sorting.png"/>
                     </button>
@@ -167,7 +167,7 @@
             <div style="display: inline-block">
                 <form action="/posts" method="get">
                     <input type="hidden" name="sort" value="desc">
-                    <label for="desc" style="margin-left: 20px">In descending order: </label>
+                    <label for="desc" style="margin-left: 20px">${language.get("posts.desc")}: </label>
                     <button id="desc" type="submit" style="border: 1px black solid; border-radius: 5px"><img
                                 src="https://img.icons8.com/ios-filled/30/000000/generic-sorting-2.png"/>
                     </button>
@@ -193,7 +193,7 @@
             </#list>
             <#else >
             <div style="margin-left: 65px; margin-top: 40px;font-family: 'Raleway', sans-serif; font-weight: 400; font-size: 25px;">
-                Пока постов нет
+                ${language.get("posts.noposts")}
             </div>
         </#if>
     </div>

@@ -31,7 +31,7 @@
                 </#list>
             <#else >
                 <div class="no-msg">
-                    No messages yet...
+                    ${language.get("chat.nomsg")}
                 </div>
             </#if>
         </div>

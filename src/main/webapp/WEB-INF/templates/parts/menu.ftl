@@ -8,6 +8,7 @@
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"
                 integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
                 crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="static/js/chat.js"></script>
     </head>
 
@@ -233,10 +234,11 @@
     <body style="background: #DCDCDC" onload="">
     <div class="wrapper">
         <ul class="navigation">
-            <li><a href="/user" title="Profile">Profile</a></li>
-            <li><a href="/users" title="All users">All users</a></li>
-            <li><a href="/posts" title="Posts">Posts</a></li>
-            <li class="logout"><a href="/logout" title="Logout">Logout</a></li>
+            <li><a href="/user" title="Profile">${language.get("navbar.profile")}</a></li>
+            <li><a href="/users" title="All users">${language.get("navbar.users")}</a></li>
+            <li><a href="/posts" title="Posts">${language.get("navbar.posts")}</a></li>
+            <li><a href="/chat" title="Chat">${language.get("navbar.chat")}</a></li>
+            <li class="logout"><a href="/logout" title="Logout">${language.get("navbar.logout")}</a></li>
             <div class="clear"></div>
         </ul>
     </div>
